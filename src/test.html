@@ -5,28 +5,67 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="index.js"></script>
+  <script src="index.js" defer></script>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
- <header>
+ <header class="pageHeader">
   <h1>Todo list</h1>
 </header>
+
+<div class="modal" id="myModal">
+  <div class="modalContent">
+    <header class="modal-header">
+      <button class="closeButton" type="button">&times;</button>
+      <p>Project details</p>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <label for="projectName">Name:</label>
+        <input type="text" id="projectName">
+      </div>
+      <div class="wrapper">
+        <label for="projectDescription">Description:</label>
+        <input type="text" id="projectDescription">
+      </div>
+    </div>
+    <button type="submit" class="modalCreateProjectButton">Create new project</button>
+  </div>
+</div>
+
+<div class="modal" id="taskModal">
+  <div class="modalContent">
+    <header class="modal-header">
+      <button class="closeButton" type="button">&times;</button>
+      <p>Task details</p>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <label for="taskDescription">Description:</label>
+        <input type="text" id="taskDescription">
+      </div>
+      <div class="wrapper">
+        <label for="taskPriority">Priority:</label>
+        <input type="text" id="taskPriority">
+      </div>
+    </div>
+    <button type="submit" class="taskCreateButton">Add task</button>
+  </div>
+</div>
 
 <main>
   <nav>
     <div class="listTitle">Project list</div> 
-    <div><button type="button" class="newProjectButton">+ New project</button></div>
-    <button type="button">Project1</button>
+    <button type="button" class="newProjectButton">+ New project</button>
+    <div class="projectList"><button type="button"></button></div>
   </nav>
+
   <div class="projectContent">
-    <div class="projectTitle">Placeholder project name</div>
-    <div class="projectDescription">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae error quasi hic optio nam alias dolorem iste, sed repellat non necessitatibus id commodi quam quaerat quis aliquid explicabo omnis itaque.</div>
+    <div class="projectTitle"></div>
+    <div class="projectDescription"></div>
     <button type="button" class="addTaskButton">+ Add task</button>
     <ul class="projectTasks">
-      <li><input type="checkbox" id="item0"><label for="item0">rekt</label></li>
-      <li><input type="checkbox" id="item1"><label for="item1">in</label></li>
-      <li><input type="checkbox" id="item2"><label for="item2">shrekt</label></li>
     </ul>
   </div>
 </main>
