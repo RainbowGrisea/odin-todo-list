@@ -85,9 +85,6 @@ function render( ) {
     taskLi.appendChild( taskLabel );
     taskList.appendChild( taskLi );
     
-    // checkbox.addEventListener( 'click', changeCheckedStatus() {
-
-    // } );
     checkbox.addEventListener( 'click', function changeCheckedStatus() {
       console.log( this );
       currentProject.tasks[ taskNumber ].checked = this.checked;
@@ -106,10 +103,6 @@ function render( ) {
     projectListDiv.appendChild( projectButton );
   };
 }
-
-// function changeCheckedStatus(  ){
-//   console.log( this );
-// }
 
 const createProjectButton = document.querySelector( '.newProjectButton' );
 createProjectButton.addEventListener( 'click', () => {
