@@ -69,9 +69,9 @@ function render( ) {
   projectDescription.innerHTML = currentProject.description;
   taskList.innerHTML = '';
 
-  // Render selected project and tasks
+  // Render selected project and its tasks
   for ( let taskNumber = 0; taskNumber < currentProject.tasks.length; taskNumber++ ) {
-    const taskLi = document.createElement( 'li' );
+    const taskDiv = document.createElement( 'div' );
     const checkbox = document.createElement( 'input' );
     const taskLabel = document.createElement( 'label' );
     
@@ -80,13 +80,34 @@ function render( ) {
     checkbox.checked = currentProject.tasks[ taskNumber ].checked;
     taskLabel.innerHTML = currentProject.tasks[ taskNumber ].text;
     taskLabel.htmlFor = 'item' + taskNumber;
+
+    switch ( currentProject.tasks[ taskNumber ].priority ) {
+      case 'low': {
+        taskDiv.classList.add( "lowPriority" );
+      }        
+        break;
+
+      case 'medium': {
+        taskDiv.classList.add( "mediumPriority" );
+      }        
+        break;
     
-    taskLi.appendChild( checkbox );
-    taskLi.appendChild( taskLabel );
-    taskList.appendChild( taskLi );
+      case 'high': {
+        taskDiv.classList.add( "highPriority" );
+      }        
+        break;
+    
+      default: {
+        taskDiv.classList.add( "lowPriority" );
+      }     
+        break;
+    }
+    
+    taskDiv.appendChild( checkbox );
+    taskDiv.appendChild( taskLabel );
+    taskList.appendChild( taskDiv );
     
     checkbox.addEventListener( 'click', function changeCheckedStatus() {
-      console.log( this );
       currentProject.tasks[ taskNumber ].checked = this.checked;
     });
   }
@@ -184,10 +205,10 @@ function addNewTask  ( description, priority ){
 // Dummy projects and tasks
 const defaultProject = new Project( 'Default project', 'This is a default project with many interesting tasks. Feel free to edit, or create a new project.', '1 week' );
 currentProject = defaultProject;
-defaultProject.tasks.push(  new Task( 'first task', 'high' ), new Task( 'second', 'medium' ), new Task( 'notthethrid', 'low' ), new Task( 'last', 'medium' ) );
+new Task( 'first task', 'high' ), new Task( 'second', 'medium' ), new Task( 'notthethrid', 'low' ), new Task( 'last', 'medium' );
 const defaultProject2 = new Project( 'Second project', 'Here we go again. You can switch between projects.', 'Now' );
 currentProject = defaultProject2;
-defaultProject2.tasks.push(  new Task( 'wow', 'low' ), new Task( 'second', 'medium' ), new Task( 'again', 'low' ), new Task( 'fourth', 'medium' ) );
+new Task( 'wow', 'low' ), new Task( 'second', 'medium' ), new Task( 'again', 'low' ), new Task( 'fourth', 'medium' );
 
 currentProject = defaultProject;
 render();

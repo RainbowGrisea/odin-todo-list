@@ -41,14 +41,14 @@ nav .newProjectButton {
   font-size: 20px;
   margin-bottom: 20px;
   border-radius: 15px;
-  border: solid 3px rgb(255, 255, 255);
   padding: 10px;
   text-align: center;
+  background-color: rgb(136, 70, 91);
+  color: white;
 }
 
 nav .newProjectButton:hover {
-  background-color: black;
-  color: white;
+  background-color: rgb(69, 35, 45);
   transition: 0.2s;
 }
 
@@ -103,12 +103,31 @@ nav .projectList .button:hover {
   transition: 0.3;
 }
 
-.projectContent li {
+.projectTasks div {
   font-size: 20px;
-  padding-bottom: 7px;
-  list-style: none;
+  padding: 10px;
+  margin-bottom: 15px;
   display: flex;
   gap: 10px;
+  align-items: center;
+  background-color: rgb(185, 185, 185);
+}
+
+.projectTasks div::hover {
+  background-color: rgb(225, 225, 225);
+ 
+}
+
+.projectTasks div.lowPriority {
+  border-left: 7px solid rgb(1, 168, 1);
+}
+
+.projectTasks div.mediumPriority {
+  border-left: 7px solid orange;
+}
+
+.projectTasks div.highPriority {
+  border-left: 7px solid rgb(255, 72, 0);
 }
 
 footer {
