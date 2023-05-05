@@ -9,20 +9,21 @@ render function - DOM manipulation
 */
 
 const projectList = [];
-let currentProject = { };
+let currentProject = {};
+let currentTask = {};
 
-function Project( name, description, dueDate ) {
-  this.name = name;
+function Project( name, description ) {
+  this.name = name || 'default';
   this.description = description;
   this.tasks = [];
-  this.dueDate = dueDate
   pushProject( this );
 }
 
-function Task( text, priority, checked ) {
+function Task( text, priority, checked, dueDate ) {
   this.text = text;
   this.priority = priority || 'normal';
   this.checked = checked || false ;
+  this.dueDate = dueDate;
   pushTask( this );
 }
 
@@ -36,7 +37,13 @@ function pushTask( task ) {
 
 function deleteProject( number ) {
   projectList.splice( number, 1 );
+  render();
 }
+
+function deleteTask( number ) {
+  currentProject.tasks.splice( number, 1 );
+  render();
+};
 
 function moveUp( number ) {
   if ( number === 0 ) return;
@@ -69,17 +76,51 @@ function render( ) {
   projectDescription.innerHTML = currentProject.description;
   taskList.innerHTML = '';
 
+  // Render project list on nav bar
+  for ( let proj = 0; proj < projectList.length; proj++ ) {
+    const projectDiv = document.createElement( 'div' );
+    const projectButton = document.createElement( 'button' );
+    const deleteProjectButton = document.createElement( 'button' );
+
+    projectDiv.classList.add( 'projectDiv' );
+    deleteProjectButton.type = 'button';
+    deleteProjectButton.innerHTML = '&times;';
+    deleteProjectButton.classList.add( 'deleteButton' );
+    projectButton.classList.add( 'projectNameButton' );
+    projectButton.innerHTML = projectList[ proj ].name;
+    projectButton.addEventListener( 'click', () => {
+      currentProject = projectList[ proj ];
+      render();
+    } )
+    projectDiv.appendChild( projectButton );
+    projectDiv.appendChild( deleteProjectButton );
+    projectListDiv.appendChild( projectDiv )
+
+    deleteProjectButton.addEventListener( 'click', () => {
+      deleteProject( proj );
+    })
+  };
+
   // Render selected project and its tasks
   for ( let taskNumber = 0; taskNumber < currentProject.tasks.length; taskNumber++ ) {
     const taskDiv = document.createElement( 'div' );
     const checkbox = document.createElement( 'input' );
     const taskLabel = document.createElement( 'label' );
-    
+    const editButton = document.createElement( 'button' );
+    const deleteButton = document.createElement( 'button' );
+
+    editButton.innerHTML = 'edit';
+    editButton.type = 'button';
+    editButton.classList.add( 'editButton' );
+    taskDiv.id = 'task' + taskNumber;
     checkbox.type = 'checkbox';
     checkbox.id = 'item' + taskNumber;
     checkbox.checked = currentProject.tasks[ taskNumber ].checked;
     taskLabel.innerHTML = currentProject.tasks[ taskNumber ].text;
     taskLabel.htmlFor = 'item' + taskNumber;
+    deleteButton.type = 'button';
+    deleteButton.innerHTML = '&times;';
+    deleteButton.classList.add( 'deleteButton' );
 
     switch ( currentProject.tasks[ taskNumber ].priority ) {
       case 'low': {
@@ -105,24 +146,22 @@ function render( ) {
     
     taskDiv.appendChild( checkbox );
     taskDiv.appendChild( taskLabel );
+    taskDiv.appendChild( editButton );
+    taskDiv.appendChild( deleteButton );
     taskList.appendChild( taskDiv );
+
+    deleteButton.addEventListener( 'click', () => {
+      deleteTask( taskNumber );
+    } )
+
+    editButton.addEventListener( 'click', () => {
+      showEditTaskModal( taskNumber );
+    })
     
     checkbox.addEventListener( 'click', function changeCheckedStatus() {
       currentProject.tasks[ taskNumber ].checked = this.checked;
     });
   }
-
-  // Render project list on nav bar
-  for ( let proj = 0; proj < projectList.length; proj++ ) {
-    let projectButton = document.createElement( 'button' );
-    projectButton.classList.add( 'button' );
-    projectButton.innerHTML = projectList[ proj ].name;
-    projectButton.addEventListener( 'click', () => {
-      currentProject = projectList[ proj ];
-      render();
-    } )
-    projectListDiv.appendChild( projectButton );
-  };
 }
 
 const createProjectButton = document.querySelector( '.newProjectButton' );
@@ -138,7 +177,7 @@ for ( let i = 0; i < closeButtons.length; i++ ){
 }
 
 function showModal( ) {
-  const modal = document.querySelector( '#myModal' );
+  const modal = document.querySelector( '#projectModal' );
   modal.style.display = 'flex';
 }
 
@@ -182,6 +221,16 @@ function showTaskModal( ) {
   taskModal.style.display = 'flex';
 }
 
+function showEditTaskModal( taskNumber ) {
+  currentTask = currentProject.tasks[ taskNumber ];
+  currentTask.taskNumber = taskNumber;
+  const editTaskModal = document.querySelector( '#editTaskModal' );
+  editTaskModal.style.display = 'flex';
+  editTaskModal.querySelector( '#taskDescription' ).value = currentTask.text;
+  editTaskModal.querySelector( '#taskPriority' ).value = currentTask.priority;
+  editTaskModal.querySelector( '#dueDate' ).value = currentTask.dueDate;
+}
+
 const addTaskButton = document.querySelector( '.addTaskButton');
 addTaskButton.addEventListener( 'click', () => {
   showTaskModal();
@@ -200,6 +249,21 @@ function addNewTask  ( description, priority ){
   clearModal();
   render();
   closeModal( addNewTaskButton );
+}
+
+const taskEditSaveButton = document.querySelector( '.taskEditSave');
+taskEditSaveButton.addEventListener( 'click', () => {
+  taskEditSave( currentTask.taskNumber );
+})
+
+function taskEditSave ( taskNumber ) {
+  currentTask.text = editTaskModal.querySelector( '#taskDescription' ).value;
+  currentTask.priority = editTaskModal.querySelector( '#taskPriority' ).value;
+  currentTask.dueDate = editTaskModal.querySelector( '#dueDate' ).value;
+  render();
+  closeModal( taskEditSaveButton );
+  delete currentTask.taskNumber;
+  currentTask = {};
 }
 
 // Dummy projects and tasks

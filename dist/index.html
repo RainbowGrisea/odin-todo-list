@@ -4,21 +4,111 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="./main.js"></script>
-  <title>To-do list</title>
+  <title>Document</title>
+  <script src="index.js" defer></script>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h1>To-do list</h1>
-  <div>Projects list</div> 
-  <button type="button"> + </button>
-  <button type="button">Project1</button>
+ <header class="pageHeader">
+  <h1>Todo list</h1>
+</header>
+
+<div class="modal" id="projectModal">
+  <div class="modalContent">
+    <header class="modal-header">
+      <button class="closeButton" type="button">&times;</button>
+      <p>Project details</p>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <label for="projectName">Name:</label>
+        <input type="text" id="projectName">
+      </div>
+      <div class="wrapper">
+        <label for="projectDescription">Description:</label>
+        <input type="text" id="projectDescription">
+      </div>
+    </div>
+    <button type="submit" class="modalCreateProjectButton">Create new project</button>
+  </div>
+</div>
+
+<div class="modal" id="taskModal">
+  <div class="modalContent">
+    <header class="modal-header">
+      <button class="closeButton" type="button">&times;</button>
+      <p>Task details</p>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <label for="taskDescription">Description:</label>
+        <input type="text" id="taskDescription">
+      </div>
+      <div class="wrapper">
+        <label for="taskPriority">Priority:</label>
+        <!-- <input type="text" id="taskPriority"> -->
+        <select name="taskPriority" id="taskPriority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="wrapper">
+        <label for="dueDate">Date:</label>
+        <input type="text" id="dueDate">
+      </div>
+    </div>
+    <button type="submit" class="taskCreateButton">Add task</button>
+  </div>
+</div>
+
+<div class="modal" id="editTaskModal">
+  <div class="modalContent">
+    <header class="modal-header">
+      <button class="closeButton" type="button">&times;</button>
+      <p>Task details</p>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <label for="taskDescription">Description:</label>
+        <input type="text" id="taskDescription">
+      </div>
+      <div class="wrapper">
+        <label for="taskPriority">Priority:</label>
+        <!-- <input type="text" id="taskPriority"> -->
+        <select name="taskPriority" id="taskPriority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="wrapper">
+        <label for="dueDate">Date:</label>
+        <input type="text" id="dueDate">
+      </div>
+    </div>
+    <button type="submit" class="taskEditSave">Save</button>
+  </div>
+</div>
+
+<main>
+  <nav>
+    <div class="listTitle">Project list</div> 
+    <button type="button" class="newProjectButton">+ New project</button>
+    <div class="projectList"><button type="button"></button></div>
+  </nav>
+
   <div class="projectContent">
-    <ul>
-      <li>rekt</li>
-      <li>in</li>
-      <li>rip</li>
+    <div class="projectTitle"></div>
+    <div class="projectDescription"></div>
+    <button type="button" class="addTaskButton">+ Add task</button>
+    <ul class="projectTasks">
     </ul>
   </div>
+</main>
+
+<footer>2023 <a href="https://github.com/RainbowGrisea">RainbowGrisea<img src="./github-mark-white.png" alt="github logo"></a></footer>
 
 </body>
 </html>

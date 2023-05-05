@@ -14,7 +14,7 @@
   <h1>Todo list</h1>
 </header>
 
-<div class="modal" id="myModal">
+<div class="modal" id="projectModal">
   <div class="modalContent">
     <header class="modal-header">
       <button class="closeButton" type="button">&times;</button>
@@ -54,8 +54,41 @@
           <option value="high">High</option>
         </select>
       </div>
+      <div class="wrapper">
+        <label for="dueDate">Date:</label>
+        <input type="text" id="dueDate">
+      </div>
     </div>
     <button type="submit" class="taskCreateButton">Add task</button>
+  </div>
+</div>
+
+<div class="modal" id="editTaskModal">
+  <div class="modalContent">
+    <header class="modal-header">
+      <button class="closeButton" type="button">&times;</button>
+      <p>Task details</p>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <label for="taskDescription">Description:</label>
+        <input type="text" id="taskDescription">
+      </div>
+      <div class="wrapper">
+        <label for="taskPriority">Priority:</label>
+        <!-- <input type="text" id="taskPriority"> -->
+        <select name="taskPriority" id="taskPriority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="wrapper">
+        <label for="dueDate">Date:</label>
+        <input type="text" id="dueDate">
+      </div>
+    </div>
+    <button type="submit" class="taskEditSave">Save</button>
   </div>
 </div>
 
@@ -76,6 +109,7 @@
 </main>
 
 <footer>2023 <a href="https://github.com/RainbowGrisea">RainbowGrisea<img src="./github-mark-white.png" alt="github logo"></a></footer>
+
 
 </body>
 </html>
